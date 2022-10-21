@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SongModel;
+use App\Models\CarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class SongController extends Controller
+class CarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class SongController extends Controller
      */
     public function index()
     {
-        $songs = SongModel::all();
-        return view('songs', ['songs' => $songs]);
+        $cars = CarModel::all();
+        return view('cars', ['cars' => $cars]);
     }
 
     /**
@@ -37,21 +37,11 @@ class SongController extends Controller
      */
     public function store(Request $request)
     {
-        $title = $request->input('title');
-        $singer = $request->input('singer');
+        $merk = $request->input('merk');
+        $type = $request->input('type');
+        $bouwjaar = $request->input('bouwjaar');
 
-        //no mass assignment
-        //$song = new Song();
-        //$song->title = $request->input('title');
-        //$song->singer = $request->input('singer');
-        //$song->save();
-
-        //mass assignment
-        //SongModel::create([
-        //    'title' => $request->input('title'),
-        //    'singer' => $request->input('singer')
-        //]);
-        SongModel::create($request->only(['title', 'singer']));
+        CarModel::create($request->only(['merk', 'type', 'bouwjaar']));
 
         return redirect()->route('index');
     }
@@ -64,8 +54,8 @@ class SongController extends Controller
      */
     public function show($id)
     {
-        $song = SongModel::find($id);
-        return view('show', ['song' => $song]);
+        $car = CarModel::find($id);
+        return view('show', ['car' => $car]);
     }
 
     /**
@@ -76,8 +66,8 @@ class SongController extends Controller
      */
     public function edit($id)
     {
-        $songs = SongModel::all();
-        return view('edit', ['song' => $songs[$id]]);
+        $cars = CarModel::all();
+        return view('edit', ['car' => $cars[$id]]);
     }
 
     /**
